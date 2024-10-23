@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthid-text"
+version = "0.1.0"
+authors = [
+  { name="DeepMind Technologies Limited" },
+]
+description = "SynthID Text: Identifying AI-generated text content"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+  "flax",
+  "jax[cuda]",
+  "jaxtyping",
+  "numpy<2.0.0",
+  "optax",
+  "torch>=2.3.0",
+  "transformers>=4.41.2,<4.45.0",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: Pytest",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed",
+]
+keywords = [
+  "artificial intelligence",
+  "language models",
+  "machine learning",
+  "text generation",
+  "watermarking",
+]
+
+[project.urls]
+"Homepage" = "https://deepmind.google/technologies/synthid/"
+"Repository" = "https://github.com/google-deepmind/synthid-text"
+"Bug Tracker" = "https://github.com/google-deepmind/synthid-text/issues"
+"Demo" = "https://colab.research.google.com/github/google-deepmind/synthid-text/blob/main/notebooks/synthid_text_huggingface_integration.ipynb"
+
+[project.optional-dependencies]
+test = [
+  "absl-py",
+  "immutabledict",
+  "pytest",
+  "tqdm",
+]
