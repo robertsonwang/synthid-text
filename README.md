@@ -1,27 +1,13 @@
 # SynthID Text
 
 This repository provides a reference implementation of the SynthID Text
-watermarking and detection capabilities, it is not intended for production use.
-The core library is [distributed on PyPI][synthid-pypi] for easy installation in
-the [Python Notebook example][synthid-colab], which demonstrates how to apply
-these tools with the [Gemma][gemma] and [GPT-2][gpt2] models.
+watermarking and detection capabilities for the [research paper][nature-paper]
+published in _Nature_. It is not intended for production use. The core library
+is [distributed on PyPI][synthid-pypi] for easy installation in the
+[Python Notebook example][synthid-colab], which demonstrates how to apply these
+tools with the [Gemma][gemma] and [GPT-2][gpt2] models.
 
-## Installation
-
-From the `synthid_text` directory run following steps:
-
-```shell
-python3 -m venv ~/.venvs/synthid
-source ~/.venvs/synthid/bin/activate
-pip install -r requirements.txt
-pip install .
-pip install notebook
-python -m notebook
-```
-
-Once your kernel is running navigate to .pynb file to execute.
-
-## Usage
+## Installation and usage
 
 The [Colab Notebook][synthid-colab] is self-contained reference implementation
 that:
@@ -46,16 +32,59 @@ require a [Colab Subscription][colab-subscriptions].
     faster.
 
 NOTE: This implementation is for reference and research reproducibility purposes
-only. Due to minor variations in Gemma and Mistral models across implementations,
-we expect minor fluctuations in the detectability and perplexity results obtained
-from this repository versus those reported in the paper. The subclasses
-introduced herein are not designed to be used in production systems. Check out
-the official SynthID logits processor in [Hugging Face Transformers][transformers]
-for a production-ready implementation.
+only. Due to minor variations in Gemma and Mistral models across
+implementations, we expect minor fluctuations in the detectability and
+perplexity results obtained from this repository versus those reported in the
+paper. The subclasses introduced herein are not designed to be used in
+production systems. Check out the official SynthID Text implementation in
+[Hugging Face Transformers][transformers-blog] for a production-ready
+implementation.
 
 NOTE: The `synthid_text.hashing_function.accumulate_hash()` function, used while
 computing G values in this reference implementation, does not provide any
 guarantees of cryptographic security.
+
+### Local notebook use
+
+The notebook can also be used locally if installed from source. Using a virtual
+environment is highly recommended for any local use.
+
+```shell
+# Create and activate the virtual environment
+python3 -m venv ~/.venvs/synthid
+source ~/.venvs/synthid/bin/activate
+
+# Download and install SynthID Text and Jupyter
+git clone https://github.com/google-deepmind/synthid-text.git
+cd synthid-text
+pip install '.[notebook-local]'
+
+# Start the Jupyter server
+python -m notebook
+```
+
+Once your kernel is running navigate to .pynb file to execute.
+
+### Running the tests
+
+The source installation also includes a small test suite to verify that the
+library is working as expected.
+
+```shell
+# Create and activate the virtual environment
+python3 -m venv ~/.venvs/synthid
+source ~/.venvs/synthid/bin/activate
+
+# Download and install SynthID Text with test dependencies from source
+git clone https://github.com/google-deepmind/synthid-text.git
+cd synthid-text
+pip install '.[test]'
+
+# Run the test suite
+pytest .
+```
+
+## How it works
 
 ### Defining a watermark configuration
 
@@ -221,15 +250,6 @@ g_values = logits_processor.compute_g_values(input_ids=outputs)
 detector.score(g_values.cpu().numpy(), combined_mask.cpu().numpy())
 ```
 
-## Running the tests
-
-```shell
-python3 -m venv ~/.venv/synthid_text
-source ~/.venv/synthid_text/bin/activate
-pip install -r requirements.txt
-pytest .
-```
-
 
 ## Human Data
 
@@ -237,7 +257,7 @@ We release the human evaluation data, where we compare watermarked text against 
 The data is located in `data/human_eval.jsonl`.
 To get the prompts used for generating the responses, please use the following code.
 
-```
+```python
 import json
 import tensorflow_datasets as tfds
 
@@ -254,12 +274,24 @@ with open('./data/human_eval.jsonl') as f:
     full_data.append(x)
 ```
 
-
-
 ## Citing this work
 
-The relevant paper is currently under review, during which time this repository
-is private. Once it goes public, a bibtex reference will be provided here.
+```bibtex
+@article{Dathathri2024,
+    author={Dathathri, Sumanth and See, Abigail and Ghaisas, Sumedh and Huang, Po-Sen and McAdam, Rob and Welbl, Johannes and Bachani, Vandana and Kaskasoli, Alex and Stanforth, Robert and Matejovicova, Tatiana and Hayes, Jamie and Vyas, Nidhi and Merey, Majd Al and Brown-Cohen, Jonah and Bunel, Rudy and Balle, Borja and Cemgil, Taylan and Ahmed, Zahra and Stacpoole, Kitty and Shumailov, Ilia and Baetu, Ciprian and Gowal, Sven and Hassabis, Demis and Kohli, Pushmeet},
+    title={Scalable watermarking for identifying large language model outputs},
+    journal={Nature},
+    year={2024},
+    month={Oct},
+    day={01},
+    volume={634},
+    number={8035},
+    pages={818-823},
+    issn={1476-4687},
+    doi={10.1038/s41586-024-08025-4},
+    url={https://doi.org/10.1038/s41586-024-08025-4}
+}
+```
 
 ## License and disclaimer
 
@@ -288,6 +320,7 @@ This is not an official Google product.
 [gpt2]: https://huggingface.co/openai-community/gpt2
 [jax]: https://github.com/google/jax
 [pytorch]: https://pytorch.org/
+[nature-paper]: https://doi.org/10.1038/s41586-024-08025-4
 [synthid-colab]: https://colab.research.google.com/github/google-deepmind/synthid-text/blob/main/notebooks/synthid_text_huggingface_integration.ipynb
 [synthid-pypi]: https://pypi.org/project/synthid-text/
 [synthid-detector-bayesian]: ./src/synthid_text/detector_bayesian.py
@@ -295,5 +328,6 @@ This is not an official Google product.
 [synthid-detector-trainer]: ./src/synthid_text/train_detector_bayesian.py
 [synthid-mixin]: ./src/synthid_text/synthid_mixin.py
 [transformers]: https://github.com/huggingface/transformers
+[transformers-blog]: huggingface.co/blog/synthid-text
 [transformers-gemma]: https://github.com/huggingface/transformers/blob/e55b33ceb4b0ba3c8c11f20b6e8d6ca4b48246d4/src/transformers/models/gemma/modeling_gemma.py#L996
 [transformers-gpt2]: https://github.com/huggingface/transformers/blob/e55b33ceb4b0ba3c8c11f20b6e8d6ca4b48246d4/src/transformers/models/gpt2/modeling_gpt2.py#L1185
