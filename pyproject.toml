@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "synthid-text"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
   { name="DeepMind Technologies Limited" },
 ]
@@ -14,12 +14,15 @@ license = { file = "LICENSE" }
 requires-python = ">=3.9"
 dependencies = [
   "flax",
+  "immutabledict==4.2.0",
   "jax[cuda]",
   "jaxtyping",
-  "numpy<2.0.0",
+  "numpy==1.26.0",
   "optax",
-  "torch>=2.3.0",
-  "transformers>=4.41.2,<4.45.0",
+  "scikit-learn",
+  "torch==2.4.0",
+  "tqdm",
+  "transformers==4.43.3",
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -49,9 +52,21 @@ keywords = [
 "Demo" = "https://colab.research.google.com/github/google-deepmind/synthid-text/blob/main/notebooks/synthid_text_huggingface_integration.ipynb"
 
 [project.optional-dependencies]
+notebook = [
+  "datasets",
+  "huggingface_hub",
+  "ipywidgets",
+  "pandas",
+  "tensorflow",
+]
+
+notebook-local = [
+  "synthid-text[notebook]",
+  "notebook",
+]
+
 test = [
   "absl-py",
-  "immutabledict",
+  "mock",
   "pytest",
-  "tqdm",
 ]
