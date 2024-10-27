@@ -127,7 +127,7 @@ inputs = tokenizer(
     return_tensors='pt',
     padding=True,
 ).to(DEVICE)
-# Genreate watermarked text.
+# Generate watermarked text.
 outputs = model.generate(
     **inputs,
     do_sample=True,
