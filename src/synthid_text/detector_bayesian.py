@@ -702,7 +702,7 @@ def train(
 
 
 class BayesianDetector:
-  """Baysian detector class used for watermark detection."""
+  """Bayesian detector class used for watermark detection."""
 
   detector_module: BayesianDetectorModule
   tokenizer: Any
