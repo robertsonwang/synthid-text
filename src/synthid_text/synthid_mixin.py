@@ -71,7 +71,7 @@ DEFAULT_WATERMARKING_CONFIG = immutabledict.immutabledict({
 
 
 class SynthIDSparseTopKMixin(transformers.GenerationMixin):
-  """Mixin class of transfomers library with watermarking enabled."""
+  """Mixin class of transformers library with watermarking enabled."""
 
   def _construct_warper_list(
       self, extra_params: Mapping[str, Any]
