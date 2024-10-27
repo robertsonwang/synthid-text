@@ -150,7 +150,7 @@ class SynthIDSparseTopKMixin(transformers.GenerationMixin):
     This function is copied and changed minimally from the HuggingFace
     repository to support watermarking implementation.
 
-    This overrides the base class implementation to achive watermarking of the
+    This overrides the base class implementation to achieve watermarking of the
     logits before they are sampled. This is done specifically so as to preserve
     the top_k indices separately without making the logits dense with all the
     indices. This removes extra overhead of considering all possible indices for
