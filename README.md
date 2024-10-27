@@ -115,7 +115,7 @@ TOP_P = 0.99
 
 # Initialize a standard tokenizer from Transformers.
 tokenizer = transformers.AutoTokenizer.from_pretrained(MODEL_NAME)
-# Initialize a a SynthID Text-enabled model.
+# Initialize a SynthID Text-enabled model.
 model = synthid_mixin.SynthIDGemmaForCausalLM.from_pretrained(
     MODEL_NAME,
     device_map='auto',
