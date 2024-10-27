@@ -199,7 +199,7 @@ logits_processor = logits_processing.SynthIDLogitsProcessor(
 # Get only the generated text from the models predictions.
 outputs = outputs[:, inputs_len:]
 
-# Copute the end-of-sequence mask, skipping first ngram_len - 1 tokens
+# Compute the end-of-sequence mask, skipping first ngram_len - 1 tokens
 # <bool>[batch_size, output_len]
 eos_token_mask = logits_processor.compute_eos_token_mask(
     input_ids=outputs,
