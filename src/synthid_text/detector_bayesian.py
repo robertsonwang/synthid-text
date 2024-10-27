@@ -1004,7 +1004,7 @@ class BayesianDetector:
 
     In practice, we have found that tuning pos_truncation_length,
     neg_truncation_length, n_epochs, learning_rate and l2_weights can help
-    improve the performance of the detector. We reccommend tuning these
+    improve the performance of the detector. We recommend tuning these
     parameters for your data.
 
     Args:
