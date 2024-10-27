@@ -745,7 +745,7 @@ class BayesianDetector:
             input_ids=outputs,
         )
     )
-    # context repitition mask shape [batch_size, output_len - (ngram_len - 1)]
+    # context repetition mask shape [batch_size, output_len - (ngram_len - 1)]
 
     combined_mask = context_repetition_mask * eos_token_mask
 
