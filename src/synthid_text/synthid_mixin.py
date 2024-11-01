@@ -77,10 +77,12 @@ class SynthIDSparseTopKMixin(transformers.GenerationMixin):
       self, extra_params: Mapping[str, Any]
   ) -> transformers.LogitsProcessorList:
     """Instantiate warpers list."""
+    if not self.watermark_config:
+      self.watermark_config = DEFAULT_WATERMARKING_CONFIG
     warpers = transformers.LogitsProcessorList()
     warpers.append(
         logits_processing.SynthIDLogitsProcessor(
-            **DEFAULT_WATERMARKING_CONFIG, **extra_params
+            **self.watermark_config, **extra_params
         )
     )
     return warpers
@@ -401,3 +403,10 @@ class SynthIDGemmaForCausalLM(
     SynthIDSparseTopKMixin, transformers.GemmaForCausalLM
 ):
   pass
+
+
+class SynthIDLlamaForCausalLM(
+    SynthIDSparseTopKMixin, transformers.LlamaForCausalLM
+):
+    watermark_config = DEFAULT_WATERMARKING_CONFIG
+    pass
